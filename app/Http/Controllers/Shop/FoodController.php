@@ -43,16 +43,16 @@ class FoodController extends Controller
      */
     public function store(FoodRequest $request)
     {
-        $food = new Food; 
+        $food = new Food;
 
-        $food->name         = $request->name; 
-        $food->price        = $request->price; 
-        $food->cooking_time = $request->cooking_time; 
-        $food->description  = $request->description; 
-        $food->tax_rate     = $request->tax_rate; 
-        $food->shop_id      = Auth::id(); 
+        $food->name         = $request->name;
+        $food->price        = $request->price;
+        $food->cooking_time = $request->cooking_time;
+        $food->description  = $request->description;
+        $food->tax_rate     = $request->tax_rate;
+        $food->shop_id      = Auth::id();
 
-        $food->save(); 
+        $food->save();
 
         return redirect()->route('shop.foods.index');
     }
@@ -99,6 +99,8 @@ class FoodController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $food = Food::find($id);
+        $food->delete();
+        return redirect()->route('shop.foods.index');
     }
 }
