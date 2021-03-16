@@ -76,7 +76,13 @@ class FoodController extends Controller
      */
     public function edit($id)
     {
-        //
+        $food = Food::find($id);
+
+        if (Auth::id() !== $food->shop_id) {
+            return abort(404);
+        }
+
+        return view('shop.food.edit', compact('food'));
     }
 
     /**
@@ -86,9 +92,24 @@ class FoodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FoodRequest $request, $id)
     {
-        //
+        $food = Food::find($id);
+
+        if (Auth::id() !== $food->shop_id) {
+            return abort(404);
+        }
+
+        $food -> name        = $request -> name;
+        $food -> price       = $request -> price;
+        $food ->cooking_time = $request -> cooking_time;
+        $food ->description  = $request -> description;
+        $food ->tax_rate     = $request -> tax_rate;
+
+        $food -> save();
+        // return view('shop.food.index', compact('food'));
+        return redirect()->route('shop.foods.index');
+
     }
 
     /**
@@ -100,6 +121,11 @@ class FoodController extends Controller
     public function destroy($id)
     {
         $food = Food::find($id);
+
+        if (Auth::id() !== $food->shop_id) {
+            return abort(404);
+        }
+
         $food->delete();
         return redirect()->route('shop.foods.index');
     }
