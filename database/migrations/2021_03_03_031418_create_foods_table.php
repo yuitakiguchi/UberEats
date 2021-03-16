@@ -25,7 +25,6 @@ class CreateFoodsTable extends Migration
             $table->timestamps();
 
             $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
-            $table->unique(['shop_id']);
         });
     }
 

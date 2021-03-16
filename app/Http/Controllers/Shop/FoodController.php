@@ -13,7 +13,6 @@ class FoodController extends Controller
     public function __construct()
     {
         $this->middleware('auth:shop');
-        // $this->middleware('auth:user');
     }
     /**
      * Display a listing of the resource.
@@ -23,7 +22,7 @@ class FoodController extends Controller
     public function index()
     {
         $foods = Food::all();
-        return view('food.index', compact('foods'));
+        return view('shop.food.index', compact('foods'));
     }
 
     /**
@@ -33,7 +32,7 @@ class FoodController extends Controller
      */
     public function create()
     {
-        return view('food.create');
+        return view('shop.food.create');
     }
 
     /**
@@ -55,7 +54,7 @@ class FoodController extends Controller
 
         $food->save(); 
 
-        return redirect()->route('foods.index');
+        return redirect()->route('shop.foods.index');
     }
 
     /**
