@@ -1,6 +1,5 @@
-@extends('layouts.user.app')
+@extends('layouts.shop.app')
 @section('content')
-@if (Auth::guard('shop')->check()) 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -27,26 +26,9 @@
                 </div> --}}
             </div>
             <div class="col-md-2">
-                <a href="{{ route('foods.create') }}" class="btn btn-primary">新規投稿</a>
-            </div>
-        </div>
-    </div>
-    
-@elseif (Auth::guard('user')->check())
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card text-center">
-            <div class="card-header">
-                商品一覧(ユーザーの画面)
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">コーラ</h5>
-                <p class="card-text">冷たくて美味しいです。</p>
-                <a href="#" class="btn btn-primary">詳細</a>
+                <a href="{{ route('shop.foods.create') }}" class="btn btn-primary">新規投稿</a>
             </div>
         </div>
     </div>
 </div>
-</div>
-@endif
 @endsection

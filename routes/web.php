@@ -30,6 +30,8 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
 
         // TOPページ
         Route::resource('home', 'HomeController', ['only' => 'index']);
+
+        Route::resource('foods', 'FoodController', ['only' => 'index', 'edit', 'create', 'show']);
     });
 });
 
@@ -67,7 +69,11 @@ Route::namespace('Shop')->prefix('shop')->name('shop.')->group(function () {
         // TOPページ
         Route::resource('home', 'HomeController', ['only' => 'index']);
 
-        Route::resource('foods', 'FoodController', ['only' => 'index', 'edit', 'create', 'show']);
+        Route::resource('foods', 'FoodController', [
+            'only' => ['index', 'edit', 'create', 'show', 'store']]
+        );
+        // Route::resource('foods', 'FoodController');
+
     });
 });
 
@@ -96,4 +102,4 @@ Route::namespace('Deliver')->prefix('deliver')->name('deliver.')->group(function
 Route::resource('shops', 'Shop\ShopController');
 Route::resource('users', 'User\UserController');
 Route::resource('delivers', 'Deliver\DeliverController');
-Route::resource('foods', 'Food\FoodController');
+// Route::resource('foods', 'Food\FoodController');
