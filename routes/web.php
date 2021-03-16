@@ -66,6 +66,8 @@ Route::namespace('Shop')->prefix('shop')->name('shop.')->group(function () {
 
         // TOPページ
         Route::resource('home', 'HomeController', ['only' => 'index']);
+
+        Route::resource('foods', 'FoodController', ['only' => 'index', 'edit', 'create', 'show']);
     });
 });
 
@@ -90,3 +92,8 @@ Route::namespace('Deliver')->prefix('deliver')->name('deliver.')->group(function
 // Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('shops', 'Shop\ShopController');
+Route::resource('users', 'User\UserController');
+Route::resource('delivers', 'Deliver\DeliverController');
+Route::resource('foods', 'Food\FoodController');

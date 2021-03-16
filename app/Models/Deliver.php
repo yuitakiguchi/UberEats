@@ -15,8 +15,9 @@ class Deliver extends Authenticatable
      *
      * @var array
      */
+    protected $table = 'delivers';
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'phone_number', 'address', 'image_name'
     ];
 
     /**
@@ -36,4 +37,14 @@ class Deliver extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function bookings()
+    {
+        return $this->hasMany('App\Booking');
+    }
+
+    public function foods()
+    {
+        return $this->hasMany('App\Models\Food');
+    }
 }

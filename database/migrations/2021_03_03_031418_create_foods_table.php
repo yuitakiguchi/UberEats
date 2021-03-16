@@ -17,10 +17,11 @@ class CreateFoodsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('shop_id');
             $table->text('image_name')->nullable();
-            $table->integer('price')->nullable();
-            $table->string('name')->nullable();
-            $table->integer('cooking_time')->nullable();
+            $table->integer('price');
+            $table->string('name');
+            $table->integer('cooking_time');
             $table->text('description');
+            $table->integer('tax_rate');
             $table->timestamps();
 
             $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
