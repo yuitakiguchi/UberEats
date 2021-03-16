@@ -15,8 +15,9 @@ class Shop extends Authenticatable
      *
      * @var array
      */
+    protected $table = 'shops';
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'phone_number', 'address', 'image_name', 'business_hours'
     ];
 
     /**
@@ -36,5 +37,15 @@ class Shop extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function likes()
+    {
+        return $this->hasMany('App\Like');
+    }
+
+    public function foods()
+    {
+        return $this->hasMany('App\Models\Food');
+    }
 }
 
