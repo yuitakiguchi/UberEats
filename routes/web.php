@@ -70,7 +70,7 @@ Route::namespace('Shop')->prefix('shop')->name('shop.')->group(function () {
         Route::resource('home', 'HomeController', ['only' => 'index']);
 
         Route::resource('foods', 'FoodController', [
-            'only' => ['index', 'edit', 'create', 'show', 'store', 'destroy']]
+            'only' => ['index', 'edit', 'create', 'show', 'store', 'destroy', 'update']]
         );
         // Route::resource('foods', 'FoodController');
 
