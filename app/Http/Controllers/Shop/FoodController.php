@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\FoodRequest;
 use App\Food;
 use Auth;
+use JD\Cloudder\Facades\Cloudder;
 
 class FoodController extends Controller
 {
@@ -51,6 +52,18 @@ class FoodController extends Controller
         $food->description  = $request->description;
         $food->tax_rate     = $request->tax_rate;
         $food->shop_id      = Auth::id();
+
+        if ($image = $request->file('image')) {
+            $image_path = $image->getRealPath();
+            Cloudder::upload($image_path, null);
+            $publicId = Cloudder::getPublicId();
+            $logoUrl = Cloudder::secureShow($publicId, [
+                'width'     => 200,
+                'height'    => 200
+            ]);
+            $food->image_path = $logoUrl;
+            $food->public_id  = $publicId;
+        }
 
         $food->save();
 
@@ -124,6 +137,10 @@ class FoodController extends Controller
 
         if (Auth::id() !== $food->shop_id) {
             return abort(404);
+        }
+
+        if (isset($food->public_id)) {
+            Cloudder::destroyImage($food->public_id);
         }
 
         $food->delete();

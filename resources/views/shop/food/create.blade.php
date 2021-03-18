@@ -13,14 +13,18 @@
                     </ul>
                 </div>
                 @endif
-            <form action="{{ route('shop.foods.store') }}" method="POST">
+            <form action="{{ route('shop.foods.store') }}" method="POST" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <button type="submit" class="btn btn-primary">保存</button>
+                <div class="form-group">
+                    <label for="image">画像</label>
+                    <input type="file" class="form-control-file" id="image" name="image">
+                </div>
                 <div class="form-group">
                     <input type="text" class="form-control-plaintext" placeholder="商品名" name="name">
                 </div>
                 <div class="form-group">
-                    <label>詳細(任意)</label>
+                    <label>詳細</label>
                     <textarea class="form-control" placeholder="詳細を入力" rows="5" name="description"></textarea>
                 </div>
                 <div class="form-group">
