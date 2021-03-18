@@ -24,21 +24,21 @@ class FoodRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:70',
+            'name'          => 'required|max:70',
             'cooking_time'  => 'required',
-            'price'  => 'required',
-            'tax_rate'  => 'required',
+            'price'         => 'required',
+            'tax_rate'      => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => '商品名は必須です。',
-            'name.max'      => '商品名は70文字以内で記入してください。',
+            'name.required'          => '商品名は必須です。',
+            'name.max'               => '商品名は70文字以内で記入してください。',
             'cooking_time.required'  => '調理時間の入力は必須です。',
-            'price.required'  => '価格の入力は必須です。',
-            'tax_rate.required'  => '税率の入力は必須です。',
+            'price.required'         => '価格の入力は必須です。',
+            'tax_rate.required'      => '税率の入力は必須です。',
         ];
     }
 }

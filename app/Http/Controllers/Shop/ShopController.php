@@ -4,9 +4,16 @@ namespace App\Http\Controllers\Shop;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ShopRequest;
+use App\Models\Shop;
+use Auth;
 
 class ShopController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:shop');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -57,7 +64,13 @@ class ShopController extends Controller
      */
     public function edit($id)
     {
-        //
+        $shop = Shop::find($id);
+
+        if (Auth::id() !== $shop->id) {
+            return abort(404);
+        }
+
+        return view('shop.edit', compact('shop'));
     }
 
     /**
@@ -67,9 +80,22 @@ class ShopController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ShopRequest $request, $id)
     {
-        //
+        $shop = Shop::find($id);
+
+        if (Auth::id() !== $shop->id) {
+            return abort(404);
+        }
+
+        $shop ->name         = $request ->name;
+        $shop ->email        = $request ->email;
+        $shop ->address      = $request ->address;
+        $shop ->phone_number = $request ->phone_number;
+
+        $shop ->save();
+        return redirect()->route('shop.foods.index');
+
     }
 
     /**
