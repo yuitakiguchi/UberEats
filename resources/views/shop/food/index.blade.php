@@ -13,6 +13,7 @@
                 @foreach ($foods as $food)
                 <div class="card-body">
                     <h5 class="card-title">商品名：{{ $food->name }}</h5>
+                    <img src="{{ $food->image_path }}" alt="商品画像">
                     <p class="card-text">内容：{{ $food->description }}</p>
                     <p class="card-text">金額：{{ $food->price }}</p>
                     <form class="dropdown-item" action='{{ route('shop.foods.destroy', $food->id) }}' method='post'>

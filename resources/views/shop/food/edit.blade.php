@@ -13,10 +13,14 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('shop.foods.update', $food->id) }}" method="POST">
+            <form action="{{ route('shop.foods.update', $food->id) }}" method="POST" enctype="multipart/form-data">
                 {{csrf_field()}}
                 {{method_field('PATCH')}}
                 <button type="submit" class="btn btn-primary">編集</button>
+                <div class="form-group">
+                    <label for="image">商品画像</label>
+                    <input type="file" class="form-control-file" id="image" name="image" value="{{ $food->image_path }}">
+                </div>
                 <div class="form-group">
                     <input type="text" class="form-control-plaintext" placeholder="商品名" name="name" value="{{ $food->name }}">
                 </div>
