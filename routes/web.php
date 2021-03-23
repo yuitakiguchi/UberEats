@@ -31,7 +31,17 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         // TOPページ
         Route::resource('home', 'HomeController', ['only' => 'index']);
 
-        Route::resource('foods', 'FoodController', ['only' => 'index', 'edit', 'create', 'show']);
+        Route::resource('foods', 'FoodController',
+            [
+                'only' => ['index', 'show']
+            ]
+        );
+
+        Route::resource('shops', 'ShopController',
+            [
+                'only' => ['index', 'show']
+            ]
+        );
     });
 });
 

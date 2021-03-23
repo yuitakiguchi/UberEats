@@ -4,17 +4,16 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ShopRequest;
 use App\Models\Shop;
+use App\Food;
 
-
-class UserController extends Controller
+class ShopController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth:user');
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +21,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $shops = Shop::all();
+        return view('user.shop.index', compact('shops'));
     }
 
     /**
@@ -54,7 +54,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $shop = Shop::find($id);
+        $shopFoods = Food::where('shop_id', $shop->id)->get();
+        // dd($shopFoods);
+        return view('user.shop.show', compact('shop', 'shopFoods'));
     }
 
     /**
@@ -75,9 +78,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ShopRequest $request, $id)
     {
         //
+
     }
 
     /**
