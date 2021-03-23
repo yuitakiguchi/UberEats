@@ -7,6 +7,7 @@
                 <a href="{{ route('shop.foods.create') }}" class="btn btn-primary">＋新しい商品</a>
             </div>
             <div class="card text-center">
+                
                 <div class="card-header">
                     投稿商品一覧（shop）
                 </div>

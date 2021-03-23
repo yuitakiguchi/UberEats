@@ -21,7 +21,8 @@ class CreateShopsTable extends Migration
             $table->string('phone_number')->nullable();
             $table->string('address')->nullable();
             $table->string('password');
-            $table->text('image_name')->nullable();
+            $table->text('image_path')->nullable();
+            $table->text('public_id')->nullable();
             $table->time('business_hours')->nullable();
             $table->rememberToken();
             $table->timestamps();
@@ -36,5 +37,10 @@ class CreateShopsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('shops');
+
+        Schema::table('shops', function (Blueprint $table) {
+            $table->dropColumn('image_path');
+            $table->dropColumn('public_id');
+        });
     }
 }

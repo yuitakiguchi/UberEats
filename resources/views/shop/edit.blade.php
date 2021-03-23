@@ -19,10 +19,10 @@
                 {{method_field('PATCH')}}
                 <div class="card text-center py-5">
                     <h2>※入力情報は商品ページ等に掲載されます。</h2>
-                    {{-- <div class="card-image form-group mx-auto my-5">
+                    <div class="card-image form-group mx-auto my-5">
                         <label for="exampleFormControlFile1"></label>
-                        <input type="file" class="form-control-file" id="image-name" name="image-name" value="画像を変更する">
-                    </div> --}}
+                        <input type="file" class="form-control-file" id="image" name="image" value="画像を変更する">
+                    </div>
 
                     <div class="row justify-content-center text-center">
                         <div class="card-name col-md-8">
