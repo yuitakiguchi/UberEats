@@ -4,10 +4,16 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Shop;
 
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:user');
+    }
 
     /**
      * Display a listing of the resource.
@@ -16,7 +22,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $shops = Shop::all();
+        return view('user.index', compact('shops'));
     }
 
     /**
