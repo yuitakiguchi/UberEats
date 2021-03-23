@@ -27,6 +27,7 @@ class ShopRequest extends FormRequest
             'name'          => 'required|max:50',
             'phone_number'  => 'required',
             'address'       => 'required',
+            'image' => 'mimes:jpeg,jpg,png,gif|max:10240',
 
         ];
     }
@@ -38,6 +39,8 @@ class ShopRequest extends FormRequest
             'name.max'               => '店名は50文字以内で記入してください。',
             'phone_number.required'  => '電話番号の入力は必須です。',
             'address.required'       => '住所の入力は必須です。',
+            'image.mimes'    => 'ファイルタイプをjpeg,jpg,png,gifに設定してください。',
+            'image.max'      => 'ファイルサイズを10MB以下に設定してください。',
         ];
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ShopRequest;
 use App\Models\Shop;
 use Auth;
+use JD\Cloudder\Facades\Cloudder;
 
 class ShopController extends Controller
 {
@@ -92,9 +93,21 @@ class ShopController extends Controller
         $shop ->email        = $request ->email;
         $shop ->address      = $request ->address;
         $shop ->phone_number = $request ->phone_number;
+        if ($image = $request->file('image')) {
+            $image_path = $image->getRealPath();
+            Cloudder::upload($image_path, null);
+            //直前にアップロードされた画像のpublicIdを取得する。
+            $publicId = Cloudder::getPublicId();
+            $logoUrl = Cloudder::secureShow($publicId, [
+                'width'     => 200,
+                'height'    => 200
+            ]);
+            $shop->image_path = $logoUrl;
+            $shop->public_id  = $publicId;
+        }
 
         $shop ->save();
-        return redirect()->route('shop.foods.index');
+        return redirect()->route('shop.foods.index', $shop->id)->with('message', 'ユーザー情報を更新しました');
 
     }
 
