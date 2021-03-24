@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Food');
     }
+
+    public function likes()
+    {
+        return $this->belongsToMany('App\Models\Shop')->withTimestamps();
+    }
 }
