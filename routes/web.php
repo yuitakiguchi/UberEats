@@ -42,6 +42,9 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
                 'only' => ['index', 'show']
             ]
         );
+
+        Route::post('shops/{shop}/likes', 'LikeController@store')->name('likes');
+        Route::post('shops/{shop}/dislikes', 'LikeController@destroy')->name('dislikes');
     });
 });
 

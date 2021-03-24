@@ -9,6 +9,21 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $shop->name }}</h5>
                     </div>
+                    @if($shop->likes()->where('shop_id', Auth::id())->exists())
+                        <div class="col-md-3">
+                        <form action="{{ route('user.dislikes', $shop) }}" method="POST">
+                            @csrf
+                            <input type="submit" value="&#xf004;いいね取り消す" class="fas btn btn-danger">
+                        </form>
+                        </div>
+                    @else
+                        <div class="col-md-3">
+                        <form action="{{ route('user.likes', $shop) }}" method="POST">
+                            @csrf
+                            <input type="submit" value="&#xf004;いいね" class="fas btn btn-success">
+                        </form>
+                        </div>
+                    @endif
                 </div>
             </a>
         @endforeach

@@ -38,14 +38,15 @@ class Shop extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function likes()
-    {
-        return $this->hasMany('App\Like');
-    }
 
     public function foods()
     {
         return $this->hasMany('App\Models\Food');
+    }
+
+    public function likes()
+    {
+        return $this->belongsToMany('App\Models\User', 'likes')->withTimestamps();
     }
 }
 
