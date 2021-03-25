@@ -20,7 +20,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('address')->nullable();
-            $table->text('image_name')->nullable();
+            $table->text('image_path')->nullable();
+            $table->text('public_id')->nullable();
             $table->string('phone_number')->nullable();
             $table->rememberToken();
             $table->timestamps();
@@ -36,5 +37,10 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+
+        Schema::table('shops', function (Blueprint $table) {
+            $table->dropColumn('image_path');
+            $table->dropColumn('public_id');
+        });
     }
 }

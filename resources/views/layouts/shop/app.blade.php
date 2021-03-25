@@ -23,9 +23,15 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'UberEats') }}
-                </a>
+                @auth
+                    <a class="app-name" href="{{ route('shop.foods.index') }}">
+                        {{ config('app.name', 'UberEats') }}
+                    </a>
+                @else
+                    <a class="app-name" href="{{ route('shop.home.index') }}">
+                        {{ config('app.name', 'UberEats') }}
+                    </a>
+                @endauth
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
