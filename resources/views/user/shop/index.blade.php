@@ -5,7 +5,7 @@
         @foreach ($shops as $shop)
             <a href="{{ route('user.shops.show',$shop->id) }}">
                 <div class="card">
-                    <img src="{{ $shop->image_path }}" alt="商品画像">
+                    <img src="{{ $shop->image_path }}" alt="店舗画像">
                     <div class="card-body">
                         <h5 class="card-title">{{ $shop->name }}</h5>
                     </div>
