@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FoodRequest;
 use App\Food;
+use App\Models\Shop;
 use Auth;
 use JD\Cloudder\Facades\Cloudder;
 
@@ -22,8 +23,9 @@ class FoodController extends Controller
      */
     public function index()
     {
-        $foods = Food::all();
-        return view('shop.food.index', compact('foods'));
+        // 自分が投稿した物だけを表示
+        $shopFoods = Food::with('shops')->where('shop_id', Auth::id())->orderBy('updated_at', 'desc')->get();
+        return view('shop.food.index', compact('shopFoods'));
     }
 
     /**

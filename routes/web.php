@@ -45,6 +45,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
 
         Route::post('shops/{shop}/likes', 'LikeController@store')->name('likes');
         Route::post('shops/{shop}/dislikes', 'LikeController@destroy')->name('dislikes');
+        Route::get('{user}/favoriteShopList', 'LikeController@favorite')->name('favoriteShopList');
     });
 });
 

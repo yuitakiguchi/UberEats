@@ -44,7 +44,7 @@ class Shop extends Authenticatable
         return $this->hasMany('App\Models\Food');
     }
 
-    public function likes()
+    public function users()
     {
         return $this->belongsToMany('App\Models\User', 'likes')->withTimestamps();
     }

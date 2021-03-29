@@ -7,25 +7,25 @@
                 <a href="{{ route('shop.foods.create') }}" class="btn btn-primary">＋新しい商品</a>
             </div>
             <div class="card text-center">
-                
+
                 <div class="card-header">
                     投稿商品一覧（shop）
                 </div>
-                @foreach ($foods as $food)
+                @foreach ($shopFoods as $shopFood)
                 <div class="card-body">
-                    <h5 class="card-title">商品名：{{ $food->name }}</h5>
-                    <img src="{{ $food->image_path }}" alt="商品画像">
-                    <p class="card-text">内容：{{ $food->description }}</p>
-                    <p class="card-text">金額：{{ $food->price }}</p>
-                    <form class="dropdown-item" action='{{ route('shop.foods.destroy', $food->id) }}' method='post'>
+                    <h5 class="card-title">商品名：{{ $shopFood->name }}</h5>
+                    <img src="{{ $shopFood->image_path }}" alt="商品画像">
+                    <p class="card-text">内容：{{ $shopFood->description }}</p>
+                    <p class="card-text">金額：{{ $shopFood->price }}</p>
+                    <form class="dropdown-item" action='{{ route('shop.foods.destroy', $shopFood->id) }}' method='post'>
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <input type='submit' value='削除' class="delete" onclick='return confirm("削除しますか？？");'>
                     </form>
-                    <a href="{{ route('shop.foods.edit', $food->id) }}" class="btn btn-primary">編集</a>
+                    <a href="{{ route('shop.foods.edit', $shopFood->id) }}" class="btn btn-primary">編集</a>
                 </div>
                 <div class="card-footer text-muted">
-                    投稿日時：{{ $food->created_at }}
+                    投稿日時：{{ $shopFood->created_at }}
                 </div>
                 @endforeach
                 {{-- <div class="card-body">

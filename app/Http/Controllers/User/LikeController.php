@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Shop;
+use App\Like;
+use App\Models\User;
 use Auth;
 
 class LikeController extends Controller
@@ -41,7 +43,7 @@ class LikeController extends Controller
      */
     public function store(Shop $shop)
     {
-        $shop->likes()->attach(Auth::id());
+        $shop->users()->attach(Auth::id());
 
         return redirect()->route('user.shops.index');
     }
@@ -88,8 +90,16 @@ class LikeController extends Controller
      */
     public function destroy(Shop $shop)
     {
-        $shop->likes()->detach(Auth::id());
+        $shop->users()->detach(Auth::id());
 
         return redirect()->route('user.shops.index');
     }
+
+    public function favorite($id)
+    {
+        $user = User::find($id);
+
+        return view('user.shop.favoriteShopList', compact('user'));
+    }
+
 }

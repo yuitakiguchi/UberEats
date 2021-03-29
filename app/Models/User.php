@@ -48,8 +48,8 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Food');
     }
 
-    public function likes()
+    public function shops()
     {
-        return $this->belongsToMany('App\Models\Shop')->withTimestamps();
+        return $this->belongsToMany('App\Models\Shop', 'likes')->withTimestamps();
     }
 }
