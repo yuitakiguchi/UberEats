@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Shop', 'likes')->withTimestamps();
     }
+
+    public function addresses()
+    {
+        return $this->belongsToMany('App\Address')->withTimestamps();
+    }
 }
