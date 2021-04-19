@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FoodRequest;
 use App\Food;
+use App\Models\Shop;
 use Auth;
 
 class FoodController extends Controller
@@ -54,7 +55,9 @@ class FoodController extends Controller
      */
     public function show($id)
     {
-        //
+        // $shop = Shop::find($id);
+        // $shopFoods = Food::where('shop_id', $shop->id)->get();
+        // return view('user.shop.show', compact('shop', 'shopFoods'));
     }
 
     /**
