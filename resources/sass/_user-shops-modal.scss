@@ -1,0 +1,36 @@
+.btnspinner {
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    border-radius: 50%;
+    background: #EEEEEE;
+    border: 1px solid #ccc;
+}
+
+.spinner_area input {
+    font-size: 18px;
+    vertical-align: middle;
+    /* デフォルトのスピナーを消す */
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+
+
+
+    input[type="button"] {
+        cursor: pointer;
+
+    }
+
+}
+
+.counter1 {
+    width: calc(1ch + 32px);
+    border: none;
+    outline: none;
+    text-align: center;
+}
+
+
+
