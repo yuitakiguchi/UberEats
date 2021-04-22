@@ -4,12 +4,13 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\FoodRequest;
-use App\Models\Food;
-use App\Models\Shop;
+use DB;
+use App\Food;
+use App\User;
+use App\Booking;
 use Auth;
 
-class FoodController extends Controller
+class BookingController extends Controller
 {
     public function __construct()
     {
@@ -22,8 +23,7 @@ class FoodController extends Controller
      */
     public function index()
     {
-        $foods = Food::all();
-        return view('user.food.index', compact('foods'));
+        //
     }
 
     /**
@@ -42,9 +42,17 @@ class FoodController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(FoodRequest $request)
+    public function store(Request $request, $shopFood)
     {
-        //
+        // dd($request);
+            $booking = new Booking;
+
+            $booking->food_id  = $shopFood;
+            $booking->user_id  = Auth::id();
+            $booking->quantity = $request->quantity;
+            $booking->save();
+
+        return redirect()->route('user.shops.show', $shopFood);
     }
 
     /**
@@ -55,9 +63,7 @@ class FoodController extends Controller
      */
     public function show($id)
     {
-        // $shop = Shop::find($id);
-        // $shopFoods = Food::where('shop_id', $shop->id)->get();
-        // return view('user.shop.show', compact('shop', 'shopFoods'));
+        //
     }
 
     /**

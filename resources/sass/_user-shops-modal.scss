@@ -1,35 +1,69 @@
-.btnspinner {
-    -ms-user-select: none;
-    -moz-user-select: -moz-none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-    border-radius: 50%;
-    background: #EEEEEE;
-    border: 1px solid #ccc;
-}
+.modal-footer{
+    padding: 24px !important;
+    justify-content: space-between;
 
-.spinner_area input {
-    font-size: 18px;
-    vertical-align: middle;
-    /* デフォルトのスピナーを消す */
-    -webkit-appearance: none;
-    -moz-appearance: textfield;
+    .spinner_area {
+        -webkit-box-pack: justify;
+        // justify-content: space-between;
+
+        .btnspinner {
+            -ms-user-select: none;
+            -moz-user-select: -moz-none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
+            border-radius: 50%;
+            background: #EEEEEE;
+            border: 1px solid #ccc;
+        }
 
 
+        .spinner_area input {
+            font-size: 18px;
+            vertical-align: middle;
+            /* デフォルトのスピナーを消す */
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+            margin: 0;
 
-    input[type="button"] {
-        cursor: pointer;
+            input[type="button"] {
+                cursor: pointer;
+            }
 
+        }
+
+        .counter1 {
+            width: calc(1ch + 55px);
+            border: none;
+            outline: none;
+            text-align: center;
+            background-color: #fff;
+            padding-left: 18px;
+        }
     }
 
-}
+    .spacer {
+        width: 24px;
+    }
 
-.counter1 {
-    width: calc(1ch + 32px);
-    border: none;
-    outline: none;
-    text-align: center;
+    .btn{
+        padding: 12px 16px;
+        min-height: 56px;
+        font-size: 18px;
+        background-color: black;
+        width: 100%;
+        line-height: 24px;
+        align-items: center;
+
+        .btn-text {
+            flex: 1;
+        }
+
+        .price {
+            text-align: right;
+            font-size: 16px;
+        }
+    }
 }
 
 

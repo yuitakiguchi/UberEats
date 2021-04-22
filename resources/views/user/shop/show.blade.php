@@ -16,46 +16,53 @@
                 </div>
             {{-- </a> --}}
             <!-- Modal -->
-            <div class="modal" id="{{  $shopFood->id  }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">{{ $shopFood->name }}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <img src="{{ $shopFood->image_path }}" alt="商品画像">
-                            <h5 class="modal-title" id="exampleModalLongTitle">{{ $shopFood->name }}</h5>
-                            <p class="card-text">{{ $shopFood->description }}</p>
-                            <div>
-                                Special Instructions
+            <form action="{{ route('user.reservations', $shopFood->id) }}" method="POST">
+                @csrf
+                <div class="modal" id="{{  $shopFood->id  }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">{{ $shopFood->name }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                            <div>
-                                <span>アレルゲン情報などに関するお問い合わせは店舗に直接ご連絡いただけます: 店舗の電話番号：[{{ $shop->phone_number }}]。
-                                    注意：今回のご注文に関するお問い合わせはこちらの店舗番号ではなく、Uber Eats サポートまでご連絡ください。</span>
+                            <div class="modal-body">
+                                <img src="{{ $shopFood->image_path }}" alt="商品画像">
+                                <h5 class="modal-title" id="exampleModalLongTitle">{{ $shopFood->name }}</h5>
+                                <p class="card-text">{{ $shopFood->description }}</p>
+                                <div>
+                                    Special Instructions
+                                </div>
+                                <div>
+                                    <span>アレルゲン情報などに関するお問い合わせは店舗に直接ご連絡いただけます: 店舗の電話番号：[{{ $shop->phone_number }}]。
+                                        注意：今回のご注文に関するお問い合わせはこちらの店舗番号ではなく、Uber Eats サポートまでご連絡ください。</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <div class="spinner_area">
-                                <input type="button" value="－" class="btnspinner" data-cal="-1" data-target=".counter1">
-                                <input type="number" value="1" class="counter1" data-max="500" data-min="1" disabled>
-                                <input type="button" value="＋" class="btnspinner" data-cal="1" data-target=".counter1">
+                            <div class="modal-footer">
+                                <div class="spinner_area">
+                                    <input type="button" value="－" class="btnspinner" data-cal="-1" data-target=".counter1">
+                                    {{-- <input type="number" value="1" class="counter1" data-max="500" data-min="1" name="quantity"> --}}
+                                    <input type="hidden" value="1" class="counter1" data-max="500" data-min="1" name="quantity">
+                                    <input type="text" value="1" class="counter1" data-max="500" data-min="1" name="quantity" disabled>
+                                    <input type="button" value="＋" class="btnspinner" data-cal="1" data-target=".counter1">
+                                </div>
+                                <div class="spacer"></div>
+                                <button type="submit" class="btn btn-primary">
+                                    <div class=btn-text>Add 1 to order</div>
+                                    <div class="price">￥{{ $shopFood->price }}</div>
+                                </button>
                             </div>
-                            <button type="button" class="btn btn-primary">Add 1 to order ￥{{ $shopFood->price }} </button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         @endforeach
     </div>
     <script>
         $('#{{  $shopFood->id  }}').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) //モーダルを呼び出すときに使われたボタンを取得
             var recipient = button.data('whatever') //data-whatever の値を取得
-
-            //Ajaxの処理はここに
 
             var modal = $(this)  //モーダルを取得
             modal.find('.modal-title').text(recipient) //モーダルのタイトルに値を表示
