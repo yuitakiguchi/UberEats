@@ -5,7 +5,6 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Shop;
-use App\Like;
 use App\Models\User;
 use Auth;
 

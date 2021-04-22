@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,6 +20,11 @@ class Food extends Model
     public function delivers()
     {
         return $this->belongsTo('App\Models\Deliver');
+    }
+
+    public function users()
+    {
+        return $this->belongsTo('App\Models\User');
     }
 
     public function bookings()

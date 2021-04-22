@@ -6,10 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
-    protected $table = 'bookings';
-    protected $fillable = [
-        'quantity', 'chip', 'payment_method'
-    ];
+    protected $fillable = ['quantity'];
 
     public function users()
     {
