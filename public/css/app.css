@@ -17086,7 +17086,6 @@ readers do not read off random characters that represent icons */
   outline: none;
   text-align: center;
   background-color: #fff;
-  padding-left: 18px;
 }
 
 .modal-footer .spacer {
@@ -17110,5 +17109,15 @@ readers do not read off random characters that represent icons */
 .modal-footer .btn .price {
   text-align: right;
   font-size: 16px;
+}
+
+.modal-footer .count {
+  width: calc(1ch + 55px);
+  border: none;
+  outline: none;
+  text-align: center;
+  background-color: black;
+  color: #fff;
+  cursor: pointer;
 }
 

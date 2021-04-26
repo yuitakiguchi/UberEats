@@ -16,7 +16,9 @@
                 </div>
             {{-- </a> --}}
             <!-- Modal -->
-            <form action="{{ route('user.reservations', $shopFood->id) }}" method="POST">
+            <form action="{{ route('user.reservations', ['shop' => $shopFood['shop_id'], 'food' => $shopFood['id']]) }}" method="POST">
+            {{-- <form action="{{ route('user.reservations', $shopFood->id) }}" method="POST">
+            <form action="{{ route('user.reservations', $shopFood->shop_id) }}" method="POST"> --}}
                 @csrf
                 <div class="modal" id="{{  $shopFood->id  }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -49,7 +51,9 @@
                                 </div>
                                 <div class="spacer"></div>
                                 <button type="submit" class="btn btn-primary">
-                                    <div class=btn-text>Add 1 to order</div>
+                                    <div class=btn-text>Add
+                                        <input type="text" value="1" class="counter1 count" disabled>
+                                        to order</div>
                                     <div class="price">￥{{ $shopFood->price }}</div>
                                 </button>
                             </div>

@@ -42,15 +42,14 @@ class BookingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $shopFood)
+    public function store(Request $request, $shopFood, $food)
     {
-        // dd($request);
-            $booking = new Booking;
+        $booking = new Booking;
 
-            $booking->food_id  = $shopFood;
-            $booking->user_id  = Auth::id();
-            $booking->quantity = $request->quantity;
-            $booking->save();
+        $booking->food_id  = $food;
+        $booking->user_id  = Auth::id();
+        $booking->quantity = $request->quantity;
+        $booking->save();
 
         return redirect()->route('user.shops.show', $shopFood);
     }
