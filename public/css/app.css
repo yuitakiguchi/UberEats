@@ -17048,16 +17048,45 @@ readers do not read off random characters that represent icons */
   font-weight: 900;
 }
 
-.modal-footer {
+.modal-dialog-fluid {
+  max-width: inherit;
+  width: 48% !important;
+  margin-left: 15px;
+}
+
+.modal-dialog-fluid .modal-body {
+  padding: 0px !important;
+}
+
+.modal-dialog-fluid .modal-body img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.modal-dialog-fluid .modal-body .modal-title {
+  font-family: sans-serif;
+  line-height: 44px;
+  font-size: 36px;
+}
+
+.modal-dialog-fluid .modal-body .card-text {
+  padding-top: 16px;
+  color: #545454;
+  line-height: 20px;
+  font-size: 14px;
+}
+
+.modal-dialog-fluid .modal-footer {
   padding: 24px !important;
   justify-content: space-between;
 }
 
-.modal-footer .spinner_area {
+.modal-dialog-fluid .modal-footer .spinner_area {
   -webkit-box-pack: justify;
 }
 
-.modal-footer .spinner_area .btnspinner {
+.modal-dialog-fluid .modal-footer .spinner_area .btnspinner {
   -ms-user-select: none;
   -moz-user-select: -moz-none;
   -webkit-user-select: none;
@@ -17067,7 +17096,7 @@ readers do not read off random characters that represent icons */
   border: 1px solid #ccc;
 }
 
-.modal-footer .spinner_area .spinner_area input {
+.modal-dialog-fluid .modal-footer .spinner_area .spinner_area input {
   font-size: 18px;
   vertical-align: middle;
   /* デフォルトのスピナーを消す */
@@ -17076,11 +17105,11 @@ readers do not read off random characters that represent icons */
   margin: 0;
 }
 
-.modal-footer .spinner_area .spinner_area input input[type=button] {
+.modal-dialog-fluid .modal-footer .spinner_area .spinner_area input input[type=button] {
   cursor: pointer;
 }
 
-.modal-footer .spinner_area .counter1 {
+.modal-dialog-fluid .modal-footer .spinner_area .counter1 {
   width: calc(1ch + 55px);
   border: none;
   outline: none;
@@ -17088,11 +17117,11 @@ readers do not read off random characters that represent icons */
   background-color: #fff;
 }
 
-.modal-footer .spacer {
+.modal-dialog-fluid .modal-footer .spacer {
   width: 24px;
 }
 
-.modal-footer .btn {
+.modal-dialog-fluid .modal-footer .btn {
   padding: 12px 16px;
   min-height: 56px;
   font-size: 18px;
@@ -17102,16 +17131,16 @@ readers do not read off random characters that represent icons */
   align-items: center;
 }
 
-.modal-footer .btn .btn-text {
+.modal-dialog-fluid .modal-footer .btn .btn-text {
   flex: 1;
 }
 
-.modal-footer .btn .price {
+.modal-dialog-fluid .modal-footer .btn .price {
   text-align: right;
   font-size: 16px;
 }
 
-.modal-footer .count {
+.modal-dialog-fluid .modal-footer .count {
   width: calc(1ch + 55px);
   border: none;
   outline: none;

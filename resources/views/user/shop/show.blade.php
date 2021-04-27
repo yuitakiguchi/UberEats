@@ -17,24 +17,25 @@
             {{-- </a> --}}
             <!-- Modal -->
             <form action="{{ route('user.reservations', ['shop' => $shopFood['shop_id'], 'food' => $shopFood['id']]) }}" method="POST">
-            {{-- <form action="{{ route('user.reservations', $shopFood->id) }}" method="POST">
-            <form action="{{ route('user.reservations', $shopFood->shop_id) }}" method="POST"> --}}
                 @csrf
                 <div class="modal" id="{{  $shopFood->id  }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog modal-dialog-fluid" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">{{ $shopFood->name }}</h5>
+                                <h4 class="modal-title" id="exampleModalLongTitle">{{ $shopFood->name }}</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <img src="{{ $shopFood->image_path }}" alt="商品画像">
-                                <h5 class="modal-title" id="exampleModalLongTitle">{{ $shopFood->name }}</h5>
+                                <h1 class="modal-title" id="exampleModalLongTitle">{{ $shopFood->name }}</h1>
                                 <p class="card-text">{{ $shopFood->description }}</p>
                                 <div>
-                                    Special Instructions
+                                    <div>Special Instructions</div>
+                                    <div>
+                                        <textarea class="form-control" placeholder="Add a note(extra sauce,no onions,etc.)" cols="39" rows="2" name="memo"></textarea>
+                                    </div>
                                 </div>
                                 <div>
                                     <span>アレルゲン情報などに関するお問い合わせは店舗に直接ご連絡いただけます: 店舗の電話番号：[{{ $shop->phone_number }}]。
@@ -44,8 +45,8 @@
                             <div class="modal-footer">
                                 <div class="spinner_area">
                                     <input type="button" value="－" class="btnspinner" data-cal="-1" data-target=".counter1" >
-                                    <input type="hidden" value="1" class="counter1" data-max="300" data-min="1" name="quantity">
-                                    <input type="text" value="1" class="counter1" data-max="300" data-min="1" name="quantity" disabled>
+                                    <input type="hidden" value="1" class="counter1" data-max="100" data-min="1" name="quantity">
+                                    <input type="text" value="1" class="counter1" data-max="100" data-min="1" name="quantity" disabled>
                                     <input type="button" value="＋" class="btnspinner" data-cal="1" data-target=".counter1" >
                                 </div>
                                 <div class="spacer"></div>
