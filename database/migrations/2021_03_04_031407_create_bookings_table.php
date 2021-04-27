@@ -19,6 +19,7 @@ class CreateBookingsTable extends Migration
             $table->unsignedBigInteger('food_id');
             // $table->unsignedBigInteger('deliver_id');
             $table->unsignedBigInteger('quantity');
+            $table->string('memo')->nullable();
             // $table->time('trading_time');
             // $table->date('trading_date');
             // $table->integer('total_amount');

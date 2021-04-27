@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BookingRequest;
 use DB;
 use App\Food;
 use App\User;
@@ -42,13 +43,14 @@ class BookingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $shopFood, $food)
+    public function store(BookingRequest $request, $shopFood, $food)
     {
         $booking = new Booking;
 
         $booking->food_id  = $food;
         $booking->user_id  = Auth::id();
         $booking->quantity = $request->quantity;
+        $booking->memo = $request->memo;
         $booking->save();
 
         return redirect()->route('user.shops.show', $shopFood);
