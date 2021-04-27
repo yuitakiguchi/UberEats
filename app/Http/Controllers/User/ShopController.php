@@ -56,7 +56,7 @@ class ShopController extends Controller
     {
         $shop = Shop::find($id);
         $shopFoods = Food::where('shop_id', $shop->id)->get();
-        // dd($shopFoods);
+
         return view('user.shop.show', compact('shop', 'shopFoods'));
     }
 

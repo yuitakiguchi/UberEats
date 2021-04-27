@@ -43,18 +43,19 @@
                             </div>
                             <div class="modal-footer">
                                 <div class="spinner_area">
-                                    <input type="button" value="－" class="btnspinner" data-cal="-1" data-target=".counter1">
-                                    {{-- <input type="number" value="1" class="counter1" data-max="500" data-min="1" name="quantity"> --}}
-                                    <input type="hidden" value="1" class="counter1" data-max="500" data-min="1" name="quantity">
-                                    <input type="text" value="1" class="counter1" data-max="500" data-min="1" name="quantity" disabled>
-                                    <input type="button" value="＋" class="btnspinner" data-cal="1" data-target=".counter1">
+                                    <input type="button" value="－" class="btnspinner" data-cal="-1" data-target=".counter1" >
+                                    <input type="hidden" value="1" class="counter1" data-max="300" data-min="1" name="quantity">
+                                    <input type="text" value="1" class="counter1" data-max="300" data-min="1" name="quantity" disabled>
+                                    <input type="button" value="＋" class="btnspinner" data-cal="1" data-target=".counter1" >
                                 </div>
                                 <div class="spacer"></div>
                                 <button type="submit" class="btn btn-primary">
                                     <div class=btn-text>Add
                                         <input type="text" value="1" class="counter1 count" disabled>
                                         to order</div>
-                                    <div class="price">￥{{ $shopFood->price }}</div>
+                                    <div class="price">
+                                        ￥{{ $shopFood->price }}
+                                    </div>
                                 </button>
                             </div>
                         </div>
@@ -73,7 +74,29 @@
             modal.find('.modal-body input#recipient-name').val(recipient) //inputタグにも表示
         })
     </script>
+    {{-- <script>
+
+            // オブジェクトと変数の準備
+            var count_disp = document.getElementById("disp_count");
+            var count_up_btn = document.getElementById("up_btn");
+            var count_down_btn = document.getElementById("down_btn");
+            var count_value = 1;
+
+            // カウントアップボタンクリック処理
+            count_up_btn.onclick = function (){
+                count_value ++;
+                count_disp.innerHTML = count_value;
+            };
+            // カウントダウンボタンクリック処理
+            count_down_btn.onclick = function (){
+                count_value --;
+                count_disp.innerHTML = count_value;
+            };
+
+    </script> --}}
     <script>
+
+
         $(function(){
 
             var arySpinnerCtrl = [];
