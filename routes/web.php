@@ -48,12 +48,19 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
             ]
         );
 
+        Route::resource('cartitem', 'BookingController', ['only' => ['index']]);
+        //↑カートの商品一覧
+        Route::group(["prefix" => 'iteminfo'], function () {
+            // Route::get('/{id}', 'BookingController@show');
+            Route::post('/add', 'BookingController@addCart')->name('addcart');
+        });
+        // Route::post('shops/{shop}/foods/{food}/reservations', 'BookingController@store')->name('reservations');
+        // Route::get('{user}/cart', 'BookingController@cart')->name('cart');
+        // Route::post('shops/{shop}/unreservations', 'BookingController@destroy')->name('unreservations');
+
         Route::post('shops/{shop}/likes', 'LikeController@store')->name('likes');
         Route::post('shops/{shop}/dislikes', 'LikeController@destroy')->name('dislikes');
         Route::get('{user}/favoriteShopList', 'LikeController@favorite')->name('favoriteShopList');
-        Route::post('shops/{shop}/foods/{food}/reservations', 'BookingController@store')->name('reservations');
-        // Route::post('shops/{shop}/reservations', 'BookingController@store')->name('reservations');
-        Route::post('shops/{shop}/unreservations', 'BookingController@destroy')->name('unreservations');
     });
 });
 
