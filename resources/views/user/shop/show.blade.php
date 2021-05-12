@@ -16,8 +16,12 @@
                 </div>
             {{-- </a> --}}
             <!-- Modal -->
-            <form action="{{ route('user.reservations', ['shop' => $shopFood['shop_id'], 'food' => $shopFood['id']]) }}" method="POST">
-                @csrf
+            {!! Form::open(['route' => 'user.addcart']) !!}
+                    {{-- 画面遷移時にPOST送信 session保存に使用 --}}
+                    {{ Form::hidden('user_id', Auth::user()->id) }}
+                    {{ Form::hidden('productId', $shopFood->id) }}
+            {{-- <form action="{{ route('user.reservations', ['shop' => $shopFood['shop_id'], 'food' => $shopFood['id']]) }}" method="POST">
+                @csrf --}}
                 <div class="modal" id="{{  $shopFood->id  }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-fluid" role="document">
                         <div class="modal-content">
@@ -51,18 +55,22 @@
                                 </div>
                                 <div class="spacer"></div>
                                 <button type="submit" class="btn btn-primary">
-                                    <div class=btn-text>Add
-                                        <input type="text" value="1" class="counter1 count" disabled>
-                                        to order</div>
-                                    <div class="price">
-                                        ￥{{ $shopFood->price }}
+                                    <div class="col-sm-auto">
+                                        {!! Form::submit('Add to order ￥', ['class' => 'btn btn-primary']) !!}
                                     </div>
+                                    {{-- <div class=btn-text>Add
+                                        <input type="text" value="1" class="counter1 count" disabled>
+                                        to order</div> --}}
+                                    {{-- <div class="price">
+                                        ￥{{ $shopFood->price }}
+                                    </div> --}}
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
+            {{-- </form> --}}
+            {!! Form::close() !!}
         @endforeach
     </div>
     <script>

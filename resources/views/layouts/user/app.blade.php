@@ -65,7 +65,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -86,7 +86,44 @@
                                     </form>
                                 </div>
                             </li>
+
                         @endunless
+                        <li class="nav-item cart">
+                            {{-- <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" href="{{ route('user.cart' , Auth::user()->id) }}">{{ __('Cart•'.'●個') }}</a> --}}
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Cart　●個</button>
+                        </li>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <h1>Your order</h1>
+                                                <ul>
+                                                    {{-- @foreach ($bookings as $booking)
+                                                        <li>
+                                                            <div class="card">
+                                                                <h5 class="card-title">{{ $booking->name }}</h5>
+                                                            </div>
+                                                        </li>
+                                                    @endforeach --}}
+                                                </ul>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="#">
+                                            <div>商品数</div>
+                                            <div>Next: Checkout</div>
+                                            <div>￥</div>
+                                        </a>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
                     </ul>
                 </div>
             </div>

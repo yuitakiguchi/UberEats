@@ -56,8 +56,22 @@ class ShopController extends Controller
     {
         $shop = Shop::find($id);
         $shopFoods = Food::where('shop_id', $shop->id)->get();
+        //変数の初期化
+        $ProductInfo = array();
+        $ProductCategory = array();
+        $UserId = '';
+        //urlパラメータから飛んできたユーザidを元にモデルからそれぞれ商品、カテゴリーを特定
+        // $ProductInfo = Product::findOrFail($id);
+        // $ProductCategory = Category::findOrFail($ProductInfo->category_id);
+        // $UserId = Auth::user()->id;
 
-        return view('user.shop.show', compact('shop', 'shopFoods'));
+        return view('user.shop.show',
+            [
+                'ProductInfo' => $ProductInfo,
+                'ProductCategory' => $ProductCategory,
+                'UserId' => $UserId,
+            ],
+        compact('shop', 'shopFoods'));
     }
 
     /**
