@@ -10,6 +10,7 @@ use App\Food;
 use App\Models\User;
 use App\Booking;
 use Auth;
+use Carbon\Carbon;
 
 class BookingController extends Controller
 {
@@ -22,9 +23,39 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(BookingRequest $request)
     {
-        //
+        /*
+        |--------------------------------------------------------------------------
+        | カート商品リスト
+        |--------------------------------------------------------------------------
+        */
+        //渡されたセッション情報をkey（名前）を用いそれぞれ取得、変数に代入
+        $sessionUser = User::find($request->session()->get('users_id'));
+
+        //removeメソッドでの配列削除時の配列連番抜け対策
+        if ($request->session()->has('cartData')) {
+            $cartData = array_values($request->session()->get('cartData'));
+        }
+
+        if (!empty($cartData)) {
+            $sessionProductsId = array_column($cartData, 'session_products_id');
+            $product = Product::with('category')->find($sessionProductsId);
+
+            foreach ($cartData as $index => &$data) {
+                //二次元目の配列を指定している$dataに'product〜'key生成 Modelオブジェクト内の各カラムを代入
+                //＆で参照渡し 仮引数($data)の変更で実引数($cartData)を更新する
+                $data['product_name'] = $product[$index]->product_name;
+                $data['price'] = $product[$index]->price;
+                //商品小計の配列作成し、配列の追加
+                $data['itemPrice'] = $data['price'] * $data['session_quantity'];
+            }
+
+            return view('products.cartlist', compact('sessionUser', 'cartData', 'totalPrice'));
+        } else {
+
+            return view('products.no_cart_list',  ['user' => Auth::user()]);
+        }
     }
 
     /**
@@ -103,53 +134,35 @@ class BookingController extends Controller
 
     public function addCart(BookingRequest $request)
     {
-        // dd($request);
-        //セッションに保存したい変数を定義（商品id,注文個数,メモ）
-        //飛んできた$requestの中のname属性をそれぞれ指定
-        $SessionProductId = $request->id;
-        $SessionProductQuantity = $request->quantity;
-        $SessionProductMemo = $request->memo;
-        //配列の入れ物を作る（初期化）
-        $SessionData = array();
-
-        //作った配列に、compact関数を用いてidと個数の変数をまとめる（”” を使っているが変数の意味）
-        $SessionData = compact("SessionProductId", "SessionProductQuantity", "SessionProductMemo");
-
-        //session_dataというキーで、$SessionDataをセッションに登録
-        $request->session()->push('session_data', $SessionData);
-
-        return redirect('cartitem');
-
-
-    /*
+        /*
     |--------------------------------------------------------------------------
     | 商品詳細 → カート画面へのSession情報保存
     |--------------------------------------------------------------------------
     */
-
-        //商品詳細画面のhidden属性で送信（Request）された商品IDと注文個数を取得し配列として変数に格納
+        //商品詳細画面のhidden属性で送信（Request）された商品ID,注文個数,メモを取得し配列として変数に格納
         //inputタグのname属性を指定し$requestからPOST送信された内容を取得する。
         $cartData = [
-            'session_products_id' => $request->products_id,
-            'session_quantity' => $request->product_quantity,
+            'session_product_id' => $request->product_id,
+            'session_product_quantity' => $request->quantity,
+            'session_product_memo' => $request->memo,
         ];
 
         //sessionにcartData配列が「無い」場合、商品情報の配列をcartData(key)という名で$cartDataをSessionに追加
         if (!$request->session()->has('cartData')) {
             $request->session()->push('cartData', $cartData);
         } else {
-            //sessionにcartData配列が「有る」場合、情報取得
+            // sessionにcartData配列が「有る」場合、情報取得
             $sessionCartData = $request->session()->get('cartData');
-
             //isSameProductId定義 product_id同一確認フラグ false = 同一ではない状態を指定
             $isSameProductId = false;
             foreach ($sessionCartData as $index => $sessionData) {
                 //product_idが同一であれば、フラグをtrueにする → 個数の合算処理、及びセッション情報更新。更新は一度のみ
-                if ($sessionData['session_products_id'] === $cartData['session_products_id']) {
+                if ($sessionData['session_product_id'] === $cartData['session_product_id']) {
                     $isSameProductId = true;
-                    $quantity = $sessionData['session_quantity'] + $cartData['session_quantity'];
-                    //cartDataをrootとしたツリー状の多次元連想配列の特定のValueにアクセスし、指定の変数でValueの上書き処理
-                    $request->session()->put('cartData.' . $index . '.session_quantity', $quantity);
+                    $quantity = $sessionData['session_product_quantity'] + $cartData['session_product_quantity'];
+                    $memo     = $cartData['session_product_memo'];
+                    // cartDataをrootとしたツリー状の多次元連想配列の特定のValueにアクセスし、指定の変数でValueの上書き処理
+                    $request->session()->put('cartData.' . $index . '.session_product_quantity', $quantity , '.session_product_memo', $memo);
                     break;
                 }
             }
@@ -159,10 +172,50 @@ class BookingController extends Controller
                 $request->session()->push('cartData', $cartData);
             }
         }
-
         //POST送信された情報をsessionに保存 'users_id'(key)に$request内の'users_id'をセット
-        $request->session()->put('users_id', ($request->users_id));
-        return redirect()->route('cartlist.index');
+        $request->session()->put('user_id', ($request->user_id));
+        return redirect()->route('user.cartlist.index');
+
 
     }
+
+
+    public function remove(BookingRequest $request)
+    {
+        /*
+        |--------------------------------------------------------------------------
+        | カート内商品の削除
+        |--------------------------------------------------------------------------
+        */
+        //session情報の取得（product_idと個数の2次元配列）
+        $sessionCartData = $request->session()->get('cartData');
+
+        //削除ボタンから受け取ったproduct_idと個数を2次元配列に
+        $removeCartItem = [
+            [
+                'session_products_id' => $request->product_id,
+                'session_quantity' => $request->product_quantity
+            ]
+        ];
+
+        //sessionデータと削除対象データを比較、重複部分を削除し残りの配列を抽出
+        $removeCompletedCartData = array_udiff($sessionCartData, $removeCartItem, function ($sessionCartData, $removeCartItem) {
+            $result1 = $sessionCartData['session_products_id'] - $removeCartItem['session_products_id'];
+            $result2 = $sessionCartData['session_quantity'] - $removeCartItem['session_quantity'];
+            return $result1 + $result2;
+        });
+
+        //上記の抽出情報でcartDataを上書き処理
+        $request->session()->put('cartData', $removeCompletedCartData);
+        //上書き後のsession再取得
+        $cartData = $request->session()->get('cartData');
+
+        //session情報があればtrue
+        if ($request->session()->has('cartData')) {
+            return redirect()->route('cartlist.index');
+        }
+
+        return view('products.no_cart_list', ['user' => Auth::user()]);
+    }
+
 }
