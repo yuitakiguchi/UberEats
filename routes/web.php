@@ -48,16 +48,29 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
             ]
         );
 
-        Route::resource('cartitem', 'BookingController', ['only' => ['index']]);
-        //↑カートの商品一覧
-        Route::group(["prefix" => 'iteminfo'], function () {
-            // Route::get('/{id}', 'BookingController@show');
-            Route::post('/add', 'BookingController@addCart')->name('addcart');
-        });
-        // Route::post('shops/{shop}/foods/{food}/reservations', 'BookingController@store')->name('reservations');
-        // Route::get('{user}/cart', 'BookingController@cart')->name('cart');
-        // Route::post('shops/{shop}/unreservations', 'BookingController@destroy')->name('unreservations');
+        /*
+        |--------------------------------------------------------------------------
+        | カート内商品関連
+        |--------------------------------------------------------------------------
+        */
+        // カート内が空
+        Route::view('/no-cartList','products/no_cart_list')->name('noCartlist');
+        // 購入完了後
+        Route::view('/purchaseCompleted', 'products/purchase_completed')->name('purchaseCompleted');
+        // カート商品リスト
+        Route::resource('cartlist', 'BookingController',['only' => ['index']]);
+        // カートから商品削除
+        Route::post('productInfo/addCart/cartListRemove', 'BookingController@remove')->name('itemRemove');
+        // カートに商品追加
+        Route::post('productInfo/addCart', 'BookingController@addCart')->name('addcart.post');
+        // 注文確定
+        Route::post('productInfo/addCart/orderFinalize', 'BookingController@store')->name('orderFinalize');
 
+        /*
+        |--------------------------------------------------------------------------
+        | お気に入り店舗リスト関連
+        |--------------------------------------------------------------------------
+        */
         Route::post('shops/{shop}/likes', 'LikeController@store')->name('likes');
         Route::post('shops/{shop}/dislikes', 'LikeController@destroy')->name('dislikes');
         Route::get('{user}/favoriteShopList', 'LikeController@favorite')->name('favoriteShopList');

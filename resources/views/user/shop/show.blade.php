@@ -3,8 +3,6 @@
 <div class="container">
     <div class="justify-content-center">
         @foreach ($shopFoods as $shopFood)
-            {{-- <a href="{{ route('user.foods.show',['shop' => $shopFood->shop_id, 'food' => $shopFood->id]) }}"> --}}
-            {{-- <a href="{{ action('User\FoodController@show', ['shop' => $shopFood->shop_id, 'food' => $shopFood->id]) }}"> --}}
                 <div data-toggle="modal" data-target="#{{  $shopFood->id  }}" data-whatever="{{ $shopFood->name }}">
                     <div  class="col-md-6 col-xl-3 mb-5 text-center mx-auto">
                         <div class="card">
@@ -14,14 +12,11 @@
                         </div>
                     </div>
                 </div>
-            {{-- </a> --}}
             <!-- Modal -->
-            {!! Form::open(['route' => 'user.addcart']) !!}
+            {!! Form::open(['route' => ['user.addcart.post', 'class' => 'd-inline']]) !!}
                     {{-- 画面遷移時にPOST送信 session保存に使用 --}}
+                    {{ Form::hidden('product_id', $shopFood->id) }}
                     {{ Form::hidden('user_id', Auth::user()->id) }}
-                    {{ Form::hidden('productId', $shopFood->id) }}
-            {{-- <form action="{{ route('user.reservations', ['shop' => $shopFood['shop_id'], 'food' => $shopFood['id']]) }}" method="POST">
-                @csrf --}}
                 <div class="modal" id="{{  $shopFood->id  }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-fluid" role="document">
                         <div class="modal-content">
@@ -54,8 +49,7 @@
                                     <input type="button" value="＋" class="btnspinner" data-cal="1" data-target=".counter1" >
                                 </div>
                                 <div class="spacer"></div>
-                                <button type="submit" class="btn btn-primary">
-                                    <div class="col-sm-auto">
+                                    <div class="col">
                                         {!! Form::submit('Add to order ￥', ['class' => 'btn btn-primary']) !!}
                                     </div>
                                     {{-- <div class=btn-text>Add
@@ -64,12 +58,10 @@
                                     {{-- <div class="price">
                                         ￥{{ $shopFood->price }}
                                     </div> --}}
-                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-            {{-- </form> --}}
             {!! Form::close() !!}
         @endforeach
     </div>
@@ -83,31 +75,8 @@
             modal.find('.modal-body input#recipient-name').val(recipient) //inputタグにも表示
         })
     </script>
-    {{-- <script>
-
-            // オブジェクトと変数の準備
-            var count_disp = document.getElementById("disp_count");
-            var count_up_btn = document.getElementById("up_btn");
-            var count_down_btn = document.getElementById("down_btn");
-            var count_value = 1;
-
-            // カウントアップボタンクリック処理
-            count_up_btn.onclick = function (){
-                count_value ++;
-                count_disp.innerHTML = count_value;
-            };
-            // カウントダウンボタンクリック処理
-            count_down_btn.onclick = function (){
-                count_value --;
-                count_disp.innerHTML = count_value;
-            };
-
-    </script> --}}
     <script>
-
-
         $(function(){
-
             var arySpinnerCtrl = [];
             var spin_speed = 20; //変動スピード
 
@@ -154,9 +123,7 @@
                     target.val(num);
                 }
             }
-
         });
     </script>
 </div>
-
 @endsection
