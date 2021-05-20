@@ -103,13 +103,13 @@
                                             <div class="form-group">
                                                 <h1>Your order</h1>
                                                 <ul>
-                                                    {{-- @foreach ($bookings as $booking)
+                                                    @foreach ($bookings as $booking)
                                                         <li>
                                                             <div class="card">
                                                                 <h5 class="card-title">{{ $booking->name }}</h5>
                                                             </div>
                                                         </li>
-                                                    @endforeach --}}
+                                                    @endforeach
                                                 </ul>
                                             </div>
                                         </form>

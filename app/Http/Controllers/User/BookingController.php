@@ -39,17 +39,18 @@ class BookingController extends Controller
         }
 
         if (!empty($cartData)) {
-            $sessionProductsId = array_column($cartData, 'session_products_id');
-            $product = Product::with('category')->find($sessionProductsId);
+            $sessionProductsId = array_column($cartData, 'session_product_id');
+            $product = Food::with('foods')->find($sessionProductsId);
 
             foreach ($cartData as $index => &$data) {
                 //二次元目の配列を指定している$dataに'product〜'key生成 Modelオブジェクト内の各カラムを代入
-                //＆で参照渡し 仮引数($data)の変更で実引数($cartData)を更新する
-                $data['product_name'] = $product[$index]->product_name;
-                $data['price'] = $product[$index]->price;
+                //＆でリファレンス渡し 仮引数($data)の変更で実引数($cartData)を更新する
+                $data['product_name'] = $product[$index]->name;
+                $data['price']        = $product[$index]->price;
                 //商品小計の配列作成し、配列の追加
-                $data['itemPrice'] = $data['price'] * $data['session_quantity'];
+                $data['itemPrice']    = $data['price'] * $data['session_product_quantity'];
             }
+            unset($data);
 
             return view('products.cartlist', compact('sessionUser', 'cartData', 'totalPrice'));
         } else {
@@ -193,15 +194,15 @@ class BookingController extends Controller
         //削除ボタンから受け取ったproduct_idと個数を2次元配列に
         $removeCartItem = [
             [
-                'session_products_id' => $request->product_id,
-                'session_quantity' => $request->product_quantity
+                'session_product_id' => $request->product_id,
+                'session_quantity'    => $request->product_quantity
             ]
         ];
 
         //sessionデータと削除対象データを比較、重複部分を削除し残りの配列を抽出
         $removeCompletedCartData = array_udiff($sessionCartData, $removeCartItem, function ($sessionCartData, $removeCartItem) {
-            $result1 = $sessionCartData['session_products_id'] - $removeCartItem['session_products_id'];
-            $result2 = $sessionCartData['session_quantity'] - $removeCartItem['session_quantity'];
+            $result1 = $sessionCartData['session_products_id'] - $removeCartItem['session_product_id'];
+            $result2 = $sessionCartData['session_product_quantity'] - $removeCartItem['session_product_quantity'];
             return $result1 + $result2;
         });
 
@@ -212,7 +213,7 @@ class BookingController extends Controller
 
         //session情報があればtrue
         if ($request->session()->has('cartData')) {
-            return redirect()->route('cartlist.index');
+            return redirect()->route('user.cartlist.index');
         }
 
         return view('products.no_cart_list', ['user' => Auth::user()]);
